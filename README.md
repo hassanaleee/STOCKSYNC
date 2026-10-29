@@ -1,13 +1,33 @@
 # StockSync
 
-Inventory and Order Management System for small online sellers.
-Web Development project - React + Node.js/Express + SQL database.
+<p align="center">
+  <img src="screenshots/stocksync-banner.png" alt="StockSync Dashboard Preview" width="100%">
+</p>
+
+> **Inventory and Order Management System for small online sellers**  
+> Full-Stack Web Development project built with React, Vite, Node.js, Express, SQLite, and Recharts.
+
+---
+
+## Screenshots
+
+### 📊 Dashboard & Analytics Overview
+<p align="center">
+  <img src="screenshots/stocksync-banner.png" alt="StockSync Dashboard & Analytics" width="100%">
+</p>
+
+### 📦 Inventory & Stock Management
+<p align="center">
+  <img src="screenshots/inventory-preview.png" alt="StockSync Inventory Table" width="100%">
+</p>
+
+---
 
 ## How to run
 
 You need **Node.js 20 or newer** (check with `node -v`). Open a terminal in this folder:
 
-```
+```bash
 npm install
 npm run dev
 ```
@@ -23,18 +43,18 @@ Then open **http://localhost:5173** in your browser.
 ## Folder structure
 
 ```
-stocksync/
-  server/                 Backend (Node.js + Express + SQLite)
-    src/index.js            starts the server, connects the route files
-    src/db.js               creates the tables
-    src/seed.js             demo data for the first run
-    src/middleware/auth.js  checks the login token (JWT)
-    src/routes/             one file per feature: auth, products, orders, ...
-  client/                 Frontend (React + Vite)
-    src/pages/              one file per page (Login, Dashboard, Products, ...)
-    src/components/         reusable parts (Layout, Modal, Badge, ...)
-    src/context/            logged-in user + toast messages
-    src/styles/             all CSS (base, layout, components, auth)
+server/                 Backend (Node.js + Express + SQLite)
+  src/index.js            starts the server, connects the route files
+  src/db.js               creates the tables
+  src/seed.js             demo data for the first run
+  src/middleware/auth.js  checks the login token (JWT)
+  src/routes/             one file per feature: auth, products, orders, ...
+client/                 Frontend (React + Vite)
+  src/pages/              one file per page (Login, Dashboard, Products, ...)
+  src/components/         reusable parts (Layout, Modal, Badge, ...)
+  src/context/            logged-in user + toast messages
+  src/styles/             all CSS (base, layout, components, auth)
+screenshots/            UI preview images and banner
 ```
 
 ## What is working
