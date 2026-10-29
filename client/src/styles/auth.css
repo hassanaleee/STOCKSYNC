@@ -1,0 +1,104 @@
+/* ==========================================================================
+   auth.css  -  login and register pages
+   ========================================================================== */
+
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.auth-main {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6) var(--space-8);
+  background: var(--bg-panel);
+}
+
+.auth-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.auth-brand:hover { text-decoration: none; }
+
+/* The form is centred in the free space under the logo */
+.auth-body {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: var(--space-8) 0;
+}
+.auth-heading { margin-bottom: var(--space-6); }
+.auth-heading h1 { margin-bottom: var(--space-1); font-size: 1.75rem; }
+
+.auth-footnote { margin-top: var(--space-6); text-align: center; color: var(--ink-muted); }
+
+.demo-hint {
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  background: var(--primary-soft);
+  border-radius: var(--radius);
+}
+
+/* [L7] relative parent + absolute child: the eye button sits inside the input */
+.password-field { position: relative; }
+.password-field input { padding-right: 40px; }
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: var(--space-2);
+  transform: translateY(-50%);
+  padding: var(--space-1);
+  color: var(--ink-muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.password-toggle:hover { color: var(--ink); }
+
+/* Dark side panel on the right */
+.auth-aside {
+  display: flex;
+  align-items: center;
+  padding: var(--space-8);
+  color: #fafafa;
+  background: #18181b;
+}
+.auth-aside-inner { max-width: 440px; margin: 0 auto; }
+.auth-quote {
+  margin-bottom: var(--space-6);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.auth-steps {
+  margin-bottom: var(--space-8);
+  padding-left: var(--space-6);
+  color: #a1a1aa;
+}
+.auth-steps li { margin-bottom: var(--space-2); padding-left: var(--space-1); }
+/* [L5] :first-child pseudo-class - the first step is highlighted */
+.auth-steps li:first-child { color: #fafafa; }
+
+.auth-stats {
+  display: flex;
+  gap: var(--space-8);
+  margin: 0;
+  padding-top: var(--space-6);
+  border-top: 1px solid #3f3f46;
+}
+.auth-stats dt { font-size: 1.5rem; font-weight: 700; }
+.auth-stats dd { margin: 0; font-size: 0.8125rem; color: #a1a1aa; }
+
+@media (max-width: 900px) {
+  .auth-layout { grid-template-columns: 1fr; }
+  .auth-aside { display: none; }
+  .auth-main { padding: var(--space-6) var(--space-4); }
+}

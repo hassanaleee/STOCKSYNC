@@ -1,0 +1,292 @@
+/* ==========================================================================
+   base.css  -  colours, spacing, typography, forms, tables
+   Look and feel is inspired by the "Metis" admin template.
+   Lecture concepts used here are marked like:  [L5] = Lecture 5, [L6] = Lecture 6 ...
+   ========================================================================== */
+
+/* [L5] Colours stored in CSS variables, so the whole app can change theme in one place. */
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-soft: #eff6ff;
+  --focus-ring: rgba(37, 99, 235, 0.25);
+
+  --bg-app: #fafafa;
+  --bg-panel: #ffffff;
+  --bg-sunken: #f4f4f5;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+
+  --ink: #18181b;
+  --ink-soft: #52525b;
+  --ink-muted: #71717a;
+
+  --success: #16a34a;  --success-bg: #dcfce7;  --success-ink: #166534;
+  --warning: #d97706;  --warning-bg: #fef3c7;  --warning-ink: #92400e;
+  --danger:  #dc2626;  --danger-bg:  #fee2e2;  --danger-ink:  #991b1b;
+  --info:    #0891b2;  --info-bg:    #cffafe;  --info-ink:    #155e75;
+  --secondary-bg: #f4f4f5;  --secondary-ink: #3f3f46;
+
+  /* [L6] A small spacing scale (4, 8, 12, 16, 24, 32) instead of random values */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius: 8px;
+  --shadow-float: 0 8px 24px rgba(9, 9, 11, 0.12), 0 2px 6px rgba(9, 9, 11, 0.06);
+
+  --sidebar-width: 240px;
+  --header-height: 56px;
+
+  /* [L7] One list of z-index values, so we always know what sits on top of what */
+  --z-header: 200;
+  --z-sidebar: 300;
+  --z-modal: 1000;
+  --z-toast: 1100;
+}
+
+/* Dark theme: the same variable names with different values. */
+[data-theme='dark'] {
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --primary-soft: rgba(59, 130, 246, 0.14);
+  --focus-ring: rgba(59, 130, 246, 0.35);
+
+  --bg-app: #09090b;
+  --bg-panel: #18181b;
+  --bg-sunken: #27272a;
+  --border: #27272a;
+  --border-strong: #3f3f46;
+
+  --ink: #fafafa;
+  --ink-soft: #a1a1aa;
+  --ink-muted: #8b8b94;
+
+  --success-bg: rgba(22, 163, 74, 0.18);  --success-ink: #4ade80;
+  --warning-bg: rgba(217, 119, 6, 0.2);   --warning-ink: #fbbf24;
+  --danger-bg:  rgba(220, 38, 38, 0.2);   --danger-ink:  #f87171;
+  --info-bg:    rgba(8, 145, 178, 0.2);   --info-ink:    #22d3ee;
+  --secondary-bg: #27272a;  --secondary-ink: #d4d4d8;
+  --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* [L6] border-box: width includes padding and border, so sizes are easy to predict */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* [L5] Inheritance: font and colour are set once on body and every child inherits them */
+body {
+  margin: 0;
+  font-family: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg-app);
+}
+
+/* [L5] Grouping selector: one rule for several elements */
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.3;
+}
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1rem; }
+h3 { font-size: 0.9375rem; }
+
+p { margin: 0; }
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+/* [L5] Pseudo-class: a style for a state (mouse over) */
+a:hover {
+  text-decoration: underline;
+}
+
+img { max-width: 100%; }
+
+code {
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 0.8125rem;
+  padding: 1px var(--space-1);
+  background: var(--bg-sunken);
+  border-radius: 4px;
+}
+
+ul, ol { margin: 0; padding: 0; }
+
+/* Small helper classes */
+.muted { color: var(--ink-muted); }
+.small { font-size: 0.8125rem; }
+.block { display: block; }  /* [L6] display: block */
+.text-danger { color: var(--danger); font-weight: 600; }
+.text-warning { color: var(--warning); font-weight: 600; }
+.page-loading { padding: var(--space-8); text-align: center; color: var(--ink-muted); }
+
+/* Visible to screen readers only (accessibility) */
+.sr-only {
+  position: absolute;                 /* [L7] absolute positioning, taken out of normal flow */
+  width: 1px;
+  height: 1px;
+  overflow: hidden;                   /* [L6] overflow: hidden clips everything outside the 1px box */
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Forms  [L4]
+   ========================================================================== */
+label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+/* [L5] Pseudo-element: adds a red star after labels that have the class "required" */
+label.required::after {
+  content: ' *';
+  color: var(--danger);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+/* Same height for text boxes and dropdowns so they line up in a row */
+input,
+select { height: 38px; }
+textarea { resize: vertical; }
+
+/* [L5] Attribute selectors: style an element by one of its attributes */
+input[type='checkbox'],
+input[type='radio'] {
+  width: auto;
+  height: auto;
+}
+input[type='number'] {
+  text-align: right;
+}
+input[type='file'] {
+  display: none;
+}
+
+/* [L5] :focus pseudo-class: a clear outline for keyboard users */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* HTML5 validation: a red border after the user has typed something wrong */
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: var(--danger);
+}
+
+::placeholder { color: var(--ink-muted); }
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field { min-width: 0; }
+.field.grow { flex: 1; }
+.hint { display: block; margin-top: var(--space-1); font-size: 0.75rem; color: var(--ink-muted); }
+
+/* A label and its select placed side by side */
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.field-inline label { margin: 0; }
+.field-inline select { width: auto; }
+
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.form-grid .span-2 { grid-column: span 2; }
+
+/* ==========================================================================
+   Tables  [L3]
+   ========================================================================== */
+/* [L6] overflow: auto  - a scrollbar appears only when the table is wider than the screen */
+.table-wrap {
+  overflow: auto;
+  max-height: 70vh;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+
+/* [L7] position: sticky - the header row stays visible while the table body scrolls */
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg-sunken);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+tbody tr:hover { background: var(--bg-sunken); }
+
+/* [L5] :last-child pseudo-class: no line under the last row */
+tbody tr:last-child td { border-bottom: 0; }
+
+tfoot td {
+  font-weight: 600;
+  border-top: 2px solid var(--border);
+  border-bottom: 0;
+}
+
+th.num,
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+td.actions { text-align: right; white-space: nowrap; }
+td.actions.left { text-align: left; }
+td.actions > * + * { margin-left: var(--space-1); }

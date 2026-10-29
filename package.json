@@ -1,0 +1,15 @@
+{
+  "name": "stocksync",
+  "version": "1.0.0",
+  "private": true,
+  "description": "StockSync - Inventory and Order Management System for small online sellers",
+  "scripts": {
+    "postinstall": "npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently -n server,client -c blue,green \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

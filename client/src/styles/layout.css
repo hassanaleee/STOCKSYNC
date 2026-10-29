@@ -1,0 +1,305 @@
+/* ==========================================================================
+   layout.css  -  the page skeleton: sidebar, top bar, main area, footer
+   ========================================================================== */
+
+/* [L7] position: fixed - the sidebar stays on the left while the page scrolls */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--z-sidebar);
+  width: var(--sidebar-width);
+  padding: var(--space-4) var(--space-3);
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3) var(--space-4);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.brand:hover { text-decoration: none; }
+
+.nav-heading {
+  margin: var(--space-4) 0 var(--space-1);
+  padding: 0 var(--space-3);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.nav-list { list-style: none; }
+
+/* [L5] Descendant selector: only links inside .nav-list */
+.nav-list .nav-link {
+  position: relative;                 /* [L7] the blue bar below is positioned inside this link */
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: 2px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.nav-list .nav-link:hover {
+  background: var(--bg-sunken);
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-list .nav-link i { font-size: 1.05rem; }
+
+/* React Router adds the class "active" to the link of the current page */
+.nav-list .nav-link.active {
+  background: var(--bg-sunken);
+  color: var(--ink);
+}
+/* [L5] ::before pseudo-element + [L7] absolute positioning = the blue bar on the left edge */
+.nav-list .nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--space-3) * -1);
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--primary);
+  border-radius: 0 3px 3px 0;
+}
+
+/* ---------- main column ---------- */
+.app-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: var(--sidebar-width);
+}
+
+/* [L7] position: sticky - the top bar sticks to the top when scrolling */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: var(--header-height);
+  padding: 0 var(--space-6);
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-search {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+}
+.topbar-search input {
+  padding-left: 36px;
+  background: var(--bg-sunken);
+  border-color: transparent;
+}
+.topbar-search i {
+  position: absolute;                 /* [L7] icon placed inside the search box */
+  top: 50%;
+  left: var(--space-3);
+  transform: translateY(-50%);
+  color: var(--ink-muted);
+  pointer-events: none;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+/* The dropdown menu of the logged-in user */
+.user-menu { position: relative; }
+.user-menu summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  list-style: none;
+}
+.user-menu summary::-webkit-details-marker { display: none; }
+.user-menu summary:hover { background: var(--bg-sunken); }
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+.user-name { font-weight: 500; }
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 220px;
+  padding: var(--space-2);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-float);
+}
+.dropdown-info {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  margin-bottom: var(--space-1);
+  border-bottom: 1px solid var(--border);
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.dropdown-item:hover { background: var(--bg-sunken); }
+
+/* ---------- main content ---------- */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.site-footer {
+  padding: var(--space-4) var(--space-6);
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+  border-top: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+/* "Skip to content" link for keyboard users: hidden until it gets focus */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: var(--space-4);
+  z-index: var(--z-toast);
+  padding: var(--space-2) var(--space-4);
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius);
+}
+.skip-link:focus { top: var(--space-2); }
+
+/* Dashboard / report grids */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.stats-grid.three { grid-template-columns: repeat(3, 1fr); }
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.grid-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- menu button + backdrop (only used on small screens) ---------- */
+.menu-btn { display: none; }                 /* [L6] display: none removes it from the layout */
+.sidebar-backdrop { display: none; }
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 20vh var(--space-4);
+}
+.not-found h1 { font-size: 4rem; }
+
+/* ==========================================================================
+   Responsive: tablets and phones
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-two,
+  .grid-three { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  /* The sidebar slides out of view and opens with the menu button */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+  .sidebar.open {
+    transform: none;
+    box-shadow: var(--shadow-float);
+  }
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-sidebar) - 1);
+    background: rgba(9, 9, 11, 0.5);
+  }
+
+  .app-body { margin-left: 0; }
+  .menu-btn { display: inline-flex; }
+  .hide-mobile { display: none; }
+  main { padding: var(--space-4); }
+  .topbar { padding: 0 var(--space-4); }
+}
+
+@media (max-width: 600px) {
+  .stats-grid,
+  .stats-grid.three { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid .span-2 { grid-column: auto; }
+}
